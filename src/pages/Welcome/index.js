@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity  } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-import * as Animatable from 'react-native-animatable';
+import * as Animatable from "react-native-animatable";
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 export default function Welcome() {
   const navigation = useNavigation();
@@ -12,24 +12,23 @@ export default function Welcome() {
     <View style={styles.container}>
       <View style={styles.containerLogo}>
         <Animatable.Image
-          animation='flipInY'
-          source={require('../../assets/logo.png')}
-          style={{ width: '100%' }}
-          resizeMode='contain'
+          animation="flipInY"
+          source={require("../../assets/icone.png")}
+          style={{ width: "70%" }}
+          resizeMode="contain"
         />
       </View>
 
       <Animatable.View
         delay={600}
-        animation='fadeInUp'
+        animation="fadeInUp"
         style={styles.containerForm}
       >
         <Text style={styles.title}> Eficiência começa com um clique. </Text>
-        <Text style={styles.text}> Faça login para começar </Text>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('SignIn')}
+          onPress={() => navigation.navigate("SignIn")}
         >
           <Text style={styles.buttonText}> Acessar </Text>
         </TouchableOpacity>
@@ -41,48 +40,51 @@ export default function Welcome() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#00a9cc',
+    backgroundColor: "#00a9cc",
   },
   containerLogo: {
     flex: 2,
-    backgroundColor: '#00a9cc',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#00a9cc",
+    justifyContent: "center",
+    alignItems: "center",
   },
   containerForm: {
     flex: 1,
-    backgroundColor: '#FFF',
+    position: "relative",
+    backgroundColor: "#FFF",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd: '5%',
+    paddingStart: "5%",
+    paddingEnd: "5%",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 28,
     marginBottom: 12,
   },
   text: {
-    color: '#a1a1a1',
-    alignItems: 'center',
-    alignSelf: 'center',
-    fontSize: 20
+    color: "#808080",
+    alignItems: "center",
+    alignSelf: "center",
+    fontSize: 20,
+    marginTop: "15%",
   },
   button: {
-    position: 'absolute',
-    backgroundColor: '#00a9cc',
+    position: "absolute",
+    backgroundColor: "#00a9cc",
     borderRadius: 50,
     paddingVertical: 8,
-    width: '60%',
-    alignSelf: 'center',
-    bottom: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "60%",
+    alignSelf: "center",
+    transform: [{ translateY: -30 }],
+    top: "50%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
     fontSize: 18,
-    color: 'black',
-    fontWeight: 'bold',
+    color: "#f2f2f2",
+    fontWeight: "bold",
   },
 });
