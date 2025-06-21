@@ -1,68 +1,51 @@
-// HomeScreen.js
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import CustomHeader from "../../../components/Header/CustomHeader";
+import * as Animatable from "react-native-animatable";
+import { useNavigation } from "@react-navigation/native";
 
-const HomeScreen = ({ navigation }) => {
-  const handleEnter = () => {
-    // Navega para a tela principal do app
-    navigation.navigate("Welcome"); // ou qualquer outra tela que você criou
+export default function HomeScreen() {
+  const navigation = useNavigation();
+  const handleMenu = () => {
+    // Aqui devo criar a função para abrir o menu
+    console.log("Menu aberto para teste.");
   };
 
-  const handleLogout = () => {
-    // Aqui você pode limpar o token, estado, etc.
-    navigation.replace("SignIn"); // volta pra tela de login
+  const loginUser = () => {
+    // Aqui devo criar uma função para pegar o usuário que foi logado.
+  };
+
+  const handleNotify = () => {
+    // Aqui devo criar a função para abrir a notificação
+    console.log("Notificações abertas para teste.");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcome}>Bem-vindo ao App de Etiquetas!</Text>
+      <CustomHeader
+        userName="Gabriel Moura"
+        onMenuPress={handleMenu}
+        onNotifyPress={handleNotify}
+      />
 
-      <TouchableOpacity style={styles.button} onPress={handleEnter}>
-        <Text style={styles.buttonText}>Entrar</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.button, styles.buttonLogout]}
-        onPress={handleLogout}
-      >
-        <Text style={styles.buttonText}>Sair</Text>
-      </TouchableOpacity>
+      <View style={styles.content}>
+        {/* // Aqui é onde virá o restante dos ícones para clicar  */}
+        <Text> Conteúdo do App aqui abaixo da barra</Text>
+      </View>
     </View>
   );
-};
-
-export default HomeScreen;
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f2f2f2",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
   },
-  welcome: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 40,
-    color: "#333",
-    textAlign: "center",
+  headerSection: {
+    flex: 1,
   },
-  button: {
-    backgroundColor: "#2e86de",
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-    marginBottom: 15,
-    width: "80%",
-    alignItems: "center",
-  },
-  buttonLogout: {
-    backgroundColor: "#e74c3c",
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
+  content: {
+    flex: 6,
+    padding: 16,
+    backgroundColor: "#fff",
   },
 });

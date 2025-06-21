@@ -53,8 +53,9 @@ export default function SignIn() {
         >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonRegister}>
+        
+        {/* Criar algo nesse carinha aqui */}
+        <TouchableOpacity style={styles.buttonRegister}> 
           <Text style={styles.registerText}>
             Não tem usuário ou esqueceu sua senha? Por favor, contate o
             administrador do sistema.
