@@ -11,9 +11,6 @@ import {
 import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/Feather";
 
-
-// import { useNavigation } from "@react-navigation/native";
-
 export default function SignIn() {
     const navigation = useNavigation();
   return (
@@ -49,7 +46,7 @@ export default function SignIn() {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => navigation.navigate("Home")}
         >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>

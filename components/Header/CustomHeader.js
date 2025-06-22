@@ -1,21 +1,25 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
 
-const CustomHeader = ({
-  userName = "Gabriel Moura",
-  onMenuPress,
-  onNotifyPress,
-}) => {
+const CustomHeader = ({ userName = "Gabriel Moura" }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>
       <Text style={styles.userName}>{userName}</Text>
 
-      <TouchableOpacity onPress={onNotifyPress} style={styles.notifyIcon}>
+      <TouchableOpacity
+        onPress={() => console.log("Notificação")}
+        style={styles.notifyIcon}
+      >
         <Icon name="bell" size={24} color="#fff" />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={onMenuPress} style={styles.menuIcon}>
+      <TouchableOpacity
+        onPress={() => navigation.openDrawer()}
+        style={styles.menuIcon}
+      >
         <Icon name="menu" size={24} color="#fff" />
       </TouchableOpacity>
     </View>
