@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   containerForm: {
     flex: 1,
-    backgroundColor: "#FFF",
+    backgroundColor: "#FAFAFA",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingHorizontal: 20,

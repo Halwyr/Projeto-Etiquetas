@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-around",
     padding: 16,
-    backgroundColor: '#fff'
+    backgroundColor: '#D4D4D4'
   },
   card: {
     alignItems: "center",
@@ -94,6 +94,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: "#333",
+    color: "#00a9cc",
   },
 });

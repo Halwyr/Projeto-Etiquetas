@@ -48,18 +48,18 @@ const CustomDrawerContent = ({ navigation }) => {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => console.log("Botão Configurações")}
+          onPress={() => navigation.navigate("HomeScreen")}
         >
-          <Icon name="settings" size={20} color="#000" style={styles.icon} />
-          <Text style={styles.buttonText}>Configurações</Text>
+          <Icon name="home" size={20} color="#000" style={styles.icon} />
+          <Text style={styles.buttonText}>Ínicio</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => console.log("Botão Sobre Nós")}
+          onPress={() => navigation.navigate("Settings")}
         >
-          <Icon name="info" size={20} color="#000" style={styles.icon} />
-          <Text style={styles.buttonText}>Sobre Nós</Text>
+          <Icon name="settings" size={20} color="#000" style={styles.icon} />
+          <Text style={styles.buttonText}>Configurações</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={confirmLogout}>
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     padding: 20,
+    backgroundColor: "#D4D4D4",
   },
   userSection: {
     marginTop: 40,
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FFF",
+    backgroundColor: "#D4D4D4",
   },
 
   button: {

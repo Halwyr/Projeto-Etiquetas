@@ -24,7 +24,7 @@ export default function Welcome() {
         animation="fadeInUp"
         style={styles.containerForm}
       >
-        <Text style={styles.title}> Eficiência começa com um clique. </Text>
+        <Text style={styles.title}> Excelência em gestão de etiquetas, sem margem para erro. </Text>
 
         <TouchableOpacity
           style={styles.button}
@@ -58,10 +58,11 @@ const styles = StyleSheet.create({
     paddingEnd: "5%",
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     marginTop: 28,
     marginBottom: 12,
+    textAlign: 'center',
   },
   text: {
     color: "#808080",
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     width: "60%",
     alignSelf: "center",
-    transform: [{ translateY: -30 }],
+    transform: [{ translateY: -10 }],
     top: "50%",
     alignItems: "center",
     justifyContent: "center",

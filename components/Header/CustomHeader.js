@@ -10,7 +10,7 @@ const CustomHeader = ({ userName = "Gabriel Moura" }) => {
       <Text style={styles.userName}>{userName}</Text>
 
       <TouchableOpacity
-        onPress={() => console.log("Notificação")}
+        onPress={() => navigation.navigate("Notifications")}
         style={styles.notifyIcon}
       >
         <Icon name="bell" size={24} color="#fff" />
