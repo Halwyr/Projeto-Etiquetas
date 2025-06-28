@@ -8,6 +8,7 @@ import {
   Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+import { useTheme } from "../../styles/ThemeContext";
 
 const CustomDrawerContent = ({ navigation }) => {
   const handleLogout = () => {
@@ -33,16 +34,21 @@ const CustomDrawerContent = ({ navigation }) => {
     );
   };
 
+  const { theme } = useTheme();
+
   return (
-    <View style={styles.drawerContainer}>
+    <View
+      style={[styles.drawerContainer, { backgroundColor: theme.background }]}
+    >
       <View style={styles.userSection}>
         <Image
           source={require("../../src/assets/avatar.png")}
           style={styles.avatar}
         />
-        {/* Futuramente devo mexer aqui para colocar o nome do usuário que foi logado. */}
-        <Text style={styles.greeting}>Olá,</Text>
-        <Text style={styles.userName}>Gabriel Moura</Text>
+        <Text style={[styles.greeting, { color: theme.text }]}>Olá,</Text>
+        <Text style={[styles.userName, { color: theme.text }]}>
+          Gabriel Moura
+        </Text>
       </View>
 
       <View style={styles.container}>
@@ -50,25 +56,39 @@ const CustomDrawerContent = ({ navigation }) => {
           style={styles.button}
           onPress={() => navigation.navigate("HomeScreen")}
         >
-          <Icon name="home" size={20} color="#000" style={styles.icon} />
-          <Text style={styles.buttonText}>Ínicio</Text>
+          <Icon
+            name="home"
+            size={20}
+            color={theme.text}
+            style={styles.icon}
+          />
+          <Text style={[styles.buttonText, { color: theme.text }]}>Início</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("Settings")}
         >
-          <Icon name="settings" size={20} color="#000" style={styles.icon} />
-          <Text style={styles.buttonText}>Configurações</Text>
+          <Icon
+            name="settings"
+            size={20}
+            color={theme.text}
+            style={styles.icon}
+          />
+          <Text style={[styles.buttonText, { color: theme.text }]}>
+            Configurações
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={confirmLogout}>
-          <Icon name="log-out" size={20} color="#000" style={styles.icon} />
-          <Text style={styles.buttonText}>Sair</Text>
+          <Icon
+            name="log-out"
+            size={20}
+            color={theme.text}
+            style={styles.icon}
+          />
+          <Text style={[styles.buttonText, { color: theme.text }]}>Sair</Text>
         </TouchableOpacity>
-      </View>
-      <View>
-        <Text style={styles.versionText}>Versão: 1.0.0.0</Text>
       </View>
     </View>
   );
@@ -81,7 +101,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     padding: 20,
-    backgroundColor: "#D4D4D4",
   },
   userSection: {
     marginTop: 40,
@@ -95,42 +114,25 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 16,
-    color: "#555",
   },
   userName: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#333",
-  },
-  logoutButton: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  logoutText: {
-    fontSize: 16,
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#D4D4D4",
   },
-
   button: {
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 10,
   },
-
   buttonText: {
     fontSize: 16,
-    color: "#000",
   },
   icon: {
     marginRight: 10,
-  },
-  versionText: {
-    textAlign: "center",
-    fontSize: 16,
   },
 });

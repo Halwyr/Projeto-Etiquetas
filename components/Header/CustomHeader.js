@@ -2,12 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../../styles/ThemeContext";
 
 const CustomHeader = ({ userName = "Gabriel Moura" }) => {
   const navigation = useNavigation();
+  const { theme } = useTheme();
   return (
-    <View style={styles.wrapper}>
-      <Text style={styles.userName}>{userName}</Text>
+    <View style={[styles.wrapper, {backgroundColor: theme.primary }]}>
+      <Text style={[styles.userName, { color: "#fff" }]}>{userName}</Text>
 
       <TouchableOpacity
         onPress={() => navigation.navigate("Notifications")}
@@ -31,14 +33,12 @@ export default CustomHeader;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: "#00a9cc",
     justifyContent: "center",
   },
   userName: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: "600",
-    color: "#fff",
     top: 20,
   },
   menuIcon: {

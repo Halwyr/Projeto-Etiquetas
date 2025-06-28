@@ -1,16 +1,18 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useTheme } from "../../../styles/ThemeContext";
 
 export default function Notifications() {
+    const { theme } = useTheme();
   return (
-    <View style={styles.containerHeader}>
+    <View style={[styles.containerHeader, { backgroundColor: theme.background }]}>
       {/* Header fixo */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Notificações</Text>
+      <View style={[styles.header, { backgroundColor: theme.primary }]}>
+        <Text style={[styles.headerTitle, {color: theme.text }]}>Notificações</Text>
       </View>
 
       <View contentContainerStyle={styles.container}>
-        <Text style={styles.text}>Nenhuma notificação</Text>
+        <Text style={[styles.text, {color: theme.text }]}>Nenhuma notificação</Text>
       </View>
     </View>
   );
@@ -19,17 +21,14 @@ export default function Notifications() {
 const styles = StyleSheet.create({
   containerHeader: {
     flex: 1,
-    backgroundColor: "#D4D4D4",
   },
   header: {
     paddingTop: 80,
     paddingBottom: 20,
-    backgroundColor: "#00a9cc",
   },
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#fff",
     textAlign: "center",
   },
     container: {

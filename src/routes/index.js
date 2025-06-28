@@ -19,7 +19,6 @@ function HomeDrawer() {
   return (
     <Drawer.Navigator
       screenOptions={{ header: (props) => <CustomHeader {...props} /> }}
-      // screenOptions={{ headerShown: false }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       {/* Adiconar as novas telas aqui para aparecer o Menu */}

@@ -8,10 +8,12 @@ import {
   ScrollView,
 } from "react-native";
 
-// import { useTheme } from "../../../styles/ThemeContext"; // Caso for criar o tema dark
 import Icon from "react-native-vector-icons/Feather";
+import { useTheme } from "../../../styles/ThemeContext";
 
 const Settings = ({ navigation }) => {
+  const { theme, toggleTheme, darkMode } = useTheme();
+
   const handleLogout = () => {
     navigation.replace("SignIn");
   };
@@ -21,105 +23,109 @@ const Settings = ({ navigation }) => {
       "Confirmação!",
       "Você deseja sair?",
       [
-        {
-          text: "Cancelar",
-          style: "cancel",
-        },
-        {
-          text: "Sair",
-          onPress: handleLogout,
-          style: "destructive",
-        },
+        { text: "Cancelar", style: "cancel" },
+        { text: "Sair", onPress: handleLogout, style: "destructive" },
       ],
       { cancelable: false }
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* Header fixo */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Configurações</Text>
+      <View style={[styles.header, { backgroundColor: theme.primary }]}>
+        <Text style={[styles.headerTitle, { color: "#fff" }]}>Configurações</Text>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Preferências do Sistema */}
-        <Text style={styles.sectionTitle}>Preferências do Sistema</Text>
+        {/* Seção 1: Preferências */}
+        <Text style={[styles.sectionTitle, { color: theme.primary }]}>Preferências do Sistema</Text>
 
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity
+          style={[styles.item, { backgroundColor: theme.card }]}
+          onPress={toggleTheme}
+        >
           <View style={styles.itemLeft}>
-            <Icon name="moon" size={20} color="#00a9cc" />
-            <Text style={styles.itemLabel}>Tema</Text>
-          </View>
-          <Icon name="chevron-right" size={20} color="#ccc" />
-        </TouchableOpacity>
-
-        {/* Sincronização e Dados */}
-        <Text style={styles.sectionTitle}>Sincronização e Dados</Text>
-
-        <TouchableOpacity style={styles.item}>
-          <View style={styles.itemLeft}>
-            <Icon name="refresh-cw" size={20} color="#00a9cc" />
-            <Text style={styles.itemLabel}>Forçar Sincronização</Text>
-          </View>
-          <Icon name="chevron-right" size={20} color="#ccc" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.item}>
-          <View style={styles.itemLeft}>
-            <Icon name="file" size={20} color="#00a9cc" />
-            <Text style={styles.itemLabel}>Exportar Dados</Text>
-          </View>
-          <Icon name="chevron-right" size={20} color="#ccc" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.item}>
-          <View style={styles.itemLeft}>
-            <Icon name="delete" size={20} color="#00a9cc" />
-            <Text style={styles.itemLabel}>
-              {" "}
-              Limpar Histórico de Impressões
+            <Icon
+              name={darkMode ? "sun" : "moon"}
+              size={20}
+              color={theme.primary}
+            />
+            <Text style={[styles.itemLabel, { color: theme.text }]}>
+              Tema {darkMode ? "Claro" : "Escuro"}
             </Text>
           </View>
-          <Icon name="chevron-right" size={20} color="#ccc" />
+          <Icon name="chevron-right" size={20} color={theme.primary} />
         </TouchableOpacity>
 
-        {/* Conta e Acesso */}
-        <Text style={styles.sectionTitle}>Conta e Acesso</Text>
+        {/* Seção 2: Sincronização e Dados */}
+        <Text style={[styles.sectionTitle, { color: theme.primary }]}>Sincronização e Dados</Text>
 
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
           <View style={styles.itemLeft}>
-            <Icon name="user" size={20} color="#00a9cc" />
-            <Text style={styles.itemLabel}>Perfil do Usuário</Text>
+            <Icon name="refresh-cw" size={20} color={theme.primary} />
+            <Text style={[styles.itemLabel, { color: theme.text }]}>Forçar Sincronização</Text>
           </View>
-          <Icon name="chevron-right" size={20} color="#ccc" />
+          <Icon name="chevron-right" size={20} color={theme.primary} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.item} onPress={confirmLogout}>
+        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
           <View style={styles.itemLeft}>
-            <Icon name="log-out" size={20} color="#00a9cc" />
-            <Text style={styles.itemLabel}>Logout</Text>
+            <Icon name="file" size={20} color={theme.primary} />
+            <Text style={[styles.itemLabel, { color: theme.text }]}>Exportar Dados</Text>
           </View>
-          <Icon name="chevron-right" size={20} color="#ccc" />
+          <Icon name="chevron-right" size={20} color={theme.primary} />
         </TouchableOpacity>
 
-        {/* Sobre o App */}
-        <Text style={styles.sectionTitle}>Sobre o App</Text>
-
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("AboutUs")}>
+        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
           <View style={styles.itemLeft}>
-            <Icon name="info" size={20} color="#00a9cc" />
-            <Text style={styles.itemLabel}>Sobre Nós</Text>
+            <Icon name="trash-2" size={20} color={theme.primary} />
+            <Text style={[styles.itemLabel, { color: theme.text }]}>Limpar Histórico</Text>
           </View>
-          <Icon name="chevron-right" size={20} color="#ccc" />
+          <Icon name="chevron-right" size={20} color={theme.primary} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.item}>
+        {/* Seção 3: Conta */}
+        <Text style={[styles.sectionTitle, { color: theme.primary }]}>Conta e Acesso</Text>
+
+        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
           <View style={styles.itemLeft}>
-            <Icon name="code" size={20} color="#00a9cc" />
-            <Text style={styles.itemLabel}>Versão: 1.0.0.1 </Text>
+            <Icon name="user" size={20} color={theme.primary} />
+            <Text style={[styles.itemLabel, { color: theme.text }]}>Perfil do Usuário</Text>
           </View>
-          <Icon name="chevron-right" size={20} color="#ccc" />
+          <Icon name="chevron-right" size={20} color={theme.primary} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.item, { backgroundColor: theme.card }]}
+          onPress={confirmLogout}
+        >
+          <View style={styles.itemLeft}>
+            <Icon name="log-out" size={20} color={theme.primary} />
+            <Text style={[styles.itemLabel, { color: theme.text }]}>Logout</Text>
+          </View>
+          <Icon name="chevron-right" size={20} color={theme.primary} />
+        </TouchableOpacity>
+
+        {/* Seção 4: Sobre */}
+        <Text style={[styles.sectionTitle, { color: theme.primary }]}>Sobre o App</Text>
+
+        <TouchableOpacity
+          style={[styles.item, { backgroundColor: theme.card }]}
+          onPress={() => navigation.navigate("AboutUs")}
+        >
+          <View style={styles.itemLeft}>
+            <Icon name="info" size={20} color={theme.primary} />
+            <Text style={[styles.itemLabel, { color: theme.text }]}>Sobre Nós</Text>
+          </View>
+          <Icon name="chevron-right" size={20} color={theme.primary} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
+          <View style={styles.itemLeft}>
+            <Icon name="code" size={20} color={theme.primary} />
+            <Text style={[styles.itemLabel, { color: theme.text }]}>Versão: 1.0.0.1</Text>
+          </View>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -131,17 +137,14 @@ export default Settings;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#D4D4D4",
   },
   header: {
     paddingTop: 80,
     paddingBottom: 20,
-    backgroundColor: "#00a9cc",
   },
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#fff",
     textAlign: "center",
   },
   scrollContent: {
@@ -150,7 +153,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#00a9cc",
     marginTop: 20,
     marginBottom: 10,
   },
@@ -158,7 +160,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
     padding: 16,
     borderRadius: 8,
     marginBottom: 10,
@@ -170,7 +171,6 @@ const styles = StyleSheet.create({
   itemLabel: {
     fontSize: 16,
     marginLeft: 20,
-    color: "#333",
     fontWeight: "bold",
   },
 });
