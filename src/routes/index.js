@@ -8,6 +8,8 @@ import CustomDrawerContent from "../../components/Header/CustomDrawerContent";
 import AboutUs from "../pages/HomeScreen/aboutUs";
 import Settings from "../pages/HomeScreen/settings";
 import Notifications from "../pages/HomeScreen/notifications";
+import ForgotPassword from "../pages/SignIn/forgotPassword";
+import ProfileScreen from "../pages/HomeScreen/profileScreen";
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomHeader from "../../components/Header/CustomHeader";
@@ -26,6 +28,7 @@ function HomeDrawer() {
       <Drawer.Screen name="AboutUs" component={AboutUs} />
       <Drawer.Screen name="Settings" component={Settings} />
       <Drawer.Screen name="Notifications" component={Notifications} />
+      <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
     </Drawer.Navigator>
   );
 }
@@ -36,6 +39,7 @@ export default function Routes() {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="Home" component={HomeDrawer} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     </Stack.Navigator>
   );
 }

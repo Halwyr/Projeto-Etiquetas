@@ -1,16 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-
 import * as Animatable from "react-native-animatable";
-
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../../../styles/ThemeContext";
 
 export default function Welcome() {
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.containerLogo}>
+    <View style={[styles.container, { backgroundColor: theme.primary }]}>
+      <View style={[styles.containerLogo, { backgroundColor: theme.primary }]}>
         <Animatable.Image
           animation="flipInY"
           source={require("../../assets/icone.png")}
@@ -22,15 +22,19 @@ export default function Welcome() {
       <Animatable.View
         delay={600}
         animation="fadeInUp"
-        style={styles.containerForm}
+        style={[styles.containerForm, { backgroundColor: theme.background }]}
       >
-        <Text style={styles.title}> Excelência em gestão de etiquetas, sem margem para erro. </Text>
+        <Text style={[styles.title, { color: theme.text }]}>
+          Excelência em gestão de etiquetas, sem margem para erro.
+        </Text>
 
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, { backgroundColor: theme.primary }]}
           onPress={() => navigation.navigate("SignIn")}
         >
-          <Text style={styles.buttonText}> Acessar </Text>
+          <Text style={[styles.buttonText, { color: "#fff" }]}>
+            Acessar
+          </Text>
         </TouchableOpacity>
       </Animatable.View>
     </View>
@@ -40,18 +44,15 @@ export default function Welcome() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#00a9cc",
   },
   containerLogo: {
     flex: 2,
-    backgroundColor: "#00a9cc",
     justifyContent: "center",
     alignItems: "center",
   },
   containerForm: {
     flex: 1,
     position: "relative",
-    backgroundColor: "#FFF",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingStart: "5%",
@@ -62,18 +63,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 28,
     marginBottom: 12,
-    textAlign: 'center',
-  },
-  text: {
-    color: "#808080",
-    alignItems: "center",
-    alignSelf: "center",
-    fontSize: 20,
-    marginTop: "15%",
+    textAlign: "center",
   },
   button: {
     position: "absolute",
-    backgroundColor: "#00a9cc",
     borderRadius: 50,
     paddingVertical: 8,
     width: "60%",
@@ -85,7 +78,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: "#f2f2f2",
     fontWeight: "bold",
   },
 });

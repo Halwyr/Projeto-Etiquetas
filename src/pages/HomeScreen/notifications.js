@@ -8,7 +8,7 @@ export default function Notifications() {
     <View style={[styles.containerHeader, { backgroundColor: theme.background }]}>
       {/* Header fixo */}
       <View style={[styles.header, { backgroundColor: theme.primary }]}>
-        <Text style={[styles.headerTitle, {color: theme.text }]}>Notificações</Text>
+        <Text style={[styles.headerTitle, {color: "#fff" }]}>Notificações</Text>
       </View>
 
       <View contentContainerStyle={styles.container}>

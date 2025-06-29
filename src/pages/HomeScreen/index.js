@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     height: "50%",
   },
   label: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: "bold",
   },
 });

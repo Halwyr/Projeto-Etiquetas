@@ -88,7 +88,7 @@ const Settings = ({ navigation }) => {
         {/* Seção 3: Conta */}
         <Text style={[styles.sectionTitle, { color: theme.primary }]}>Conta e Acesso</Text>
 
-        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
+        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]} onPress={() => navigation.navigate("ProfileScreen")}>
           <View style={styles.itemLeft}>
             <Icon name="user" size={20} color={theme.primary} />
             <Text style={[styles.itemLabel, { color: theme.text }]}>Perfil do Usuário</Text>
@@ -124,7 +124,7 @@ const Settings = ({ navigation }) => {
         <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
           <View style={styles.itemLeft}>
             <Icon name="code" size={20} color={theme.primary} />
-            <Text style={[styles.itemLabel, { color: theme.text }]}>Versão: 1.0.0.1</Text>
+            <Text style={[styles.itemLabel, { color: theme.text }]}>Versão: 1.0.0.5</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>

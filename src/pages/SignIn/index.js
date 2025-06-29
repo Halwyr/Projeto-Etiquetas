@@ -10,52 +10,76 @@ import {
 
 import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/Feather";
+import { useTheme } from "../../../styles/ThemeContext";
 
 export default function SignIn() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const { theme } = useTheme();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.primary }]}>
       <Animatable.View
         animation="fadeInLeft"
         delay={500}
         style={styles.containerHeader}
       >
-        <Text style={styles.message}> Boas-vindas</Text>
+        <Text style={[styles.message, { color: "#fff" }]}>
+          Boas-vindas
+        </Text>
       </Animatable.View>
 
-      <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-        <Text style={styles.title}>Insira seu usuário</Text>
-        <View style={styles.userContainer}>
-          <Icon name="user" size={20} color="#00a9cc" style={styles.icon} />
+      <Animatable.View
+        animation="fadeInUp"
+        style={[styles.containerForm, { backgroundColor: theme.background }]}
+      >
+        <Text style={[styles.title, { color: theme.text }]}>
+          Insira seu usuário
+        </Text>
+        <View
+          style={[
+            styles.inputContainer,
+            { backgroundColor: theme.inputBackground, borderColor: theme.border },
+          ]}
+        >
+          <Icon name="user" size={20} color={theme.primary} style={styles.icon} />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { color: theme.text }]}
             placeholder="Usuário..."
-            placeholderTextColor="#666"
+            placeholderTextColor={theme.placeholder}
           />
         </View>
 
-        <Text style={styles.title}>Insira sua senha</Text>
-        <View style={styles.passwordContainer}>
-          <Icon name="lock" size={20} color="#00a9cc" style={styles.icon} />
+        <Text style={[styles.title, { color: theme.text }]}>
+          Insira sua senha
+        </Text>
+        <View
+          style={[
+            styles.inputContainer,
+            { backgroundColor: theme.inputBackground, borderColor: theme.border },
+          ]}
+        >
+          <Icon name="lock" size={20} color={theme.primary} style={styles.icon} />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { color: theme.text }]}
             placeholder="Senha..."
-            placeholderTextColor="#666"
+            placeholderTextColor={theme.placeholder}
+            secureTextEntry
           />
         </View>
 
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, { backgroundColor: theme.primary }]}
           onPress={() => navigation.navigate("Home")}
         >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
-        
-        {/* Criar algo nesse carinha aqui */}
-        <TouchableOpacity style={styles.buttonRegister}> 
-          <Text style={styles.registerText}>
-            Não tem usuário ou esqueceu sua senha? Por favor, contate o
-            administrador do sistema.
+
+        <TouchableOpacity
+          style={styles.buttonRegister}
+          onPress={() => navigation.navigate("ForgotPassword")}
+        >
+          <Text style={[styles.registerText, { color: theme.primary }]}>
+            Não tem usuário ou esqueceu sua senha?
           </Text>
         </TouchableOpacity>
       </Animatable.View>
@@ -66,7 +90,6 @@ export default function SignIn() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#00a9cc",
   },
   containerHeader: {
     marginTop: "14%",
@@ -76,11 +99,9 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#FFF",
   },
   containerForm: {
     flex: 1,
-    backgroundColor: "#FAFAFA",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingHorizontal: 20,
@@ -90,36 +111,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
     marginBottom: 16,
-    color: "#333",
   },
-  userContainer: {
+  inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f2f2f2",
     height: 48,
     borderRadius: 8,
     paddingHorizontal: 12,
-    fontSize: 16,
-    color: "#333",
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: "#ccc",
   },
-  passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f2f2f2",
-    height: 48,
-    borderRadius: 8,
-    paddingHorizontal: 12,
+  input: {
+    flex: 1,
     fontSize: 16,
-    color: "#333",
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    marginLeft: 10,
   },
   button: {
-    backgroundColor: "#00a9cc",
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: "center",
@@ -135,7 +142,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   registerText: {
-    color: "#00a9cc",
     fontSize: 14,
   },
 });
