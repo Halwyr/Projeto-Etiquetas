@@ -5,14 +5,16 @@ import Welcome from "../pages/Welcome";
 import SignIn from "../pages/SignIn";
 import HomeScreen from "../pages/HomeScreen";
 import CustomDrawerContent from "../../components/Header/CustomDrawerContent";
-import AboutUs from "../pages/HomeScreen/aboutUs";
-import Settings from "../pages/HomeScreen/settings";
-import Notifications from "../pages/HomeScreen/notifications";
+import AboutUs from "../pages/AboutUs/aboutUs"
+import Settings from "../pages/Settings/settings";
+import ProfileScreen from "../pages/Settings/profileScreen";
+import Notifications from "../pages/Notifications/notifications";
 import ForgotPassword from "../pages/SignIn/forgotPassword";
-import ProfileScreen from "../pages/HomeScreen/profileScreen";
 
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomHeader from "../../components/Header/CustomHeader";
+import ProductListScreen from "../pages/ProductListScreen";
+// import BarcodeScannerScreen from "../pages/BarcodeScannerScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -29,6 +31,8 @@ function HomeDrawer() {
       <Drawer.Screen name="Settings" component={Settings} />
       <Drawer.Screen name="Notifications" component={Notifications} />
       <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Drawer.Screen name="ProductList" component={ProductListScreen} />
+      {/* <Drawer.Screen name="ScannerScreen" component={BarcodeScannerScreen} /> */}
     </Drawer.Navigator>
   );
 }

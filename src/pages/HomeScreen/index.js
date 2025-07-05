@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import CustomHeader from "../../../components/Header/CustomHeader";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../../styles/ThemeContext";
@@ -30,13 +24,33 @@ export default function HomeScreen() {
         onNotifyPress={handleNotify}
       />
 
-      <View style={[styles.containerMenu, { backgroundColor: theme.background }]}>
-        <TouchableOpacity style={styles.card}>
+      <View
+        style={[styles.containerMenu, { backgroundColor: theme.background }]}
+      >
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("ProductList")}
+        >
+          <Image
+            source={require("../../../src/assets/product.png")}
+            style={styles.icon}
+          />
+          <Text style={[styles.label, { color: theme.primary }]}>
+            Consultar Produtos
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.card}
+          // onPress={() => navigation.navigate("ScannerScreen")}
+        >
           <Image
             source={require("../../../src/assets/searchprice.png")}
             style={styles.icon}
           />
-          <Text style={[styles.label, { color: theme.primary }]}>Consultar Preço</Text>
+          <Text style={[styles.label, { color: theme.primary }]}>
+            Consultar Preço
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.card}>
@@ -44,15 +58,9 @@ export default function HomeScreen() {
             source={require("../../../src/assets/print.png")}
             style={styles.icon}
           />
-          <Text style={[styles.label, { color: theme.primary }]}>Gerar Etiquetas</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.card}>
-          <Image
-            source={require("../../../src/assets/product.png")}
-            style={styles.icon}
-          />
-          <Text style={[styles.label, { color: theme.primary }]}>Procurar Produto</Text>
+          <Text style={[styles.label, { color: theme.primary }]}>
+            Gerar Etiquetas
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.card}>
@@ -60,7 +68,9 @@ export default function HomeScreen() {
             source={require("../../../src/assets/historical.png")}
             style={styles.icon}
           />
-          <Text style={[styles.label, { color: theme.primary }]}>Histórico de Impressão</Text>
+          <Text style={[styles.label, { color: theme.primary }]}>
+            Histórico de Impressão
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
