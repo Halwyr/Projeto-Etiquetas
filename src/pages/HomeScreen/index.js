@@ -42,7 +42,7 @@ export default function HomeScreen() {
 
         <TouchableOpacity
           style={styles.card}
-          // onPress={() => navigation.navigate("ScannerScreen")}
+          onPress={() => navigation.navigate("ScannerScreen")}
         >
           <Image
             source={require("../../../src/assets/searchprice.png")}
@@ -53,7 +53,10 @@ export default function HomeScreen() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("EtiquetasPreview")}
+        >
           <Image
             source={require("../../../src/assets/print.png")}
             style={styles.icon}
