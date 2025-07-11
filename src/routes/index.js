@@ -5,7 +5,7 @@ import Welcome from "../pages/Welcome";
 import SignIn from "../pages/SignIn";
 import HomeScreen from "../pages/HomeScreen";
 import CustomDrawerContent from "../../components/Header/CustomDrawerContent";
-import AboutUs from "../pages/AboutUs/aboutUs"
+import AboutUs from "../pages/AboutUs/aboutUs";
 import Settings from "../pages/Settings/settings";
 import ProfileScreen from "../pages/Settings/profileScreen";
 import Notifications from "../pages/Notifications/notifications";
@@ -16,6 +16,8 @@ import CustomHeader from "../../components/Header/CustomHeader";
 import ProductListScreen from "../pages/ProductListScreen";
 import BarcodeScannerScreen from "../pages/BarcodeScannerScreen";
 import EtiquetaPreview from "../pages/EtiquetasPreview";
+import ManualLabelCreator from "../pages/ManualLabelCreator";
+import HistoryScreen from "../pages/HistoryScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -35,6 +37,8 @@ function HomeDrawer() {
       <Drawer.Screen name="ProductList" component={ProductListScreen} />
       <Drawer.Screen name="ScannerScreen" component={BarcodeScannerScreen} />
       <Drawer.Screen name="EtiquetasPreview" component={EtiquetaPreview} />
+      <Drawer.Screen name="ManualLabelCreator" component={ManualLabelCreator} />
+      <Drawer.Screen name="HistoryScreen" component={HistoryScreen} />
     </Drawer.Navigator>
   );
 }

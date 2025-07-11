@@ -8,7 +8,6 @@ import {
   FlatList,
   Modal,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 import { useTheme } from "../../../styles/ThemeContext";
 
 // JSON contendo os produtos cadastrados

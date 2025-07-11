@@ -49,7 +49,7 @@ export default function HomeScreen() {
             style={styles.icon}
           />
           <Text style={[styles.label, { color: theme.primary }]}>
-            Consultar Preço
+            Busca Preço
           </Text>
         </TouchableOpacity>
 
@@ -66,13 +66,24 @@ export default function HomeScreen() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("HistoryScreen")}>
           <Image
             source={require("../../../src/assets/historical.png")}
             style={styles.icon}
           />
           <Text style={[styles.label, { color: theme.primary }]}>
             Histórico de Impressão
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.card}
+        onPress={() => navigation.navigate("ManualLabelCreator")}>
+          <Image
+            source={require("../../../src/assets/edit.png")}
+            style={styles.icon}
+          />
+          <Text style={[styles.label, { color: theme.primary }]}>
+            Adicionar Etiqueta
           </Text>
         </TouchableOpacity>
       </View>

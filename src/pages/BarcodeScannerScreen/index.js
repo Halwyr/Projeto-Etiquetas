@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useTheme } from "../../../styles/ThemeContext";
 import { useEtiqueta } from "../../context/EtiquetaContext";
+import Icon from "react-native-vector-icons/Feather";
 
 // JSON contendo os produtos cadastrados
 const mockProducts = [
@@ -73,94 +74,114 @@ const mockProducts = [
 export default function BarcodeScannerScreen() {
   const { adicionarEtiqueta } = useEtiqueta();
   const { theme } = useTheme();
-  const [barcode, setBarcode] = useState("");
+  const [input, setInput] = useState("");
   const [product, setProduct] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [error, setError] = useState("");
 
-  const handleFakeScan = () => {
-    const found = mockProducts.find((p) => p.barcode === barcode.trim());
-    if (found) {
-      setProduct(found);
+  const searchForPrice = () => {
+    const result =
+      mockProducts.find((p) => p.barcode === input.trim()) ||
+      mockProducts.find((p) => p.code === input.trim());
+    if (result) {
+      setProduct(result);
       setModalVisible(true);
       setError("");
     } else {
       setProduct(null);
       setModalVisible(false);
-      setError("Produto não encontrado");
+      setError("Produto não encontrado!");
     }
   };
 
-  return (
+ return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Text style={[styles.title, { color: theme.text }]}>
-        Simulador de Scanner
-      </Text>
+      <View style={[styles.header, { backgroundColor: theme.primary }]}>
+        <Text style={[styles.headerTitle, { color: "#fff" }]}>Busca Preço</Text>
+      </View>
 
-      <TextInput
-        placeholder="Digite o código de barras..."
-        value={barcode}
-        onChangeText={setBarcode}
-        style={[
-          styles.input,
-          {
-            backgroundColor: theme.card,
-            borderColor: theme.primary,
-            color: theme.text,
-          },
-        ]}
-        placeholderTextColor={theme.placeholder}
-        keyboardType="numeric"
-      />
+      <View style={styles.innerContainer}>
+        <Text style={[styles.title, { color: theme.text }]}>
+          Insira o código ou use a câmera
+        </Text>
 
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+        <View style={styles.inputWrapper}>
+          <TextInput
+            placeholder="Código ou Código de Barras"
+            value={input}
+            onChangeText={setInput}
+            placeholderTextColor={theme.placeholder}
+            style={[
+              styles.input,
+              {
+                backgroundColor: theme.card,
+                color: theme.text,
+                borderColor: theme.primary,
+              },
+            ]}
+            keyboardType="numeric"
+          />
+          <TouchableOpacity
+            style={styles.iconButton}
+            // onPress={() => navigation.navigate("ScannerScreen")}
+          >
+            <Icon name="camera" size={22} color={theme.primary} />
+          </TouchableOpacity>
+        </View>
 
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: theme.primary }]}
-        onPress={handleFakeScan}
-      >
-        <Text style={styles.buttonText}>Simular Escaneamento</Text>
-      </TouchableOpacity>
+        {error !== "" && <Text style={styles.error}>{error}</Text>}
 
-      <Modal
-        visible={modalVisible}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
-      >
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: theme.primary }]}
+          onPress={searchForPrice}
+        >
+          <Text style={styles.buttonText}>Pesquisar</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Modal */}
+      <Modal visible={modalVisible} transparent animationType="slide">
         <View style={styles.modalOverlay}>
-          <View style={[styles.modalContent, { backgroundColor: theme.card }]}>
+          <View
+            style={[styles.modalContent, { backgroundColor: theme.card }]}
+          >
             <Text style={[styles.modalTitle, { color: theme.text }]}>
-              Produto encontrado!
+              Produto Encontrado
             </Text>
-            <Text style={[styles.modalText, { color: theme.text }]}>
-              Código: {product?.code}
-            </Text>
-            <Text style={[styles.modalText, { color: theme.text }]}>
-              Descrição: {product?.desc}
-            </Text>
-            <Text style={[styles.modalText, { color: theme.text }]}>
-              Preço: R$ {product?.price.toFixed(2)}
-            </Text>
-            <Text style={[styles.modalText, { color: theme.text }]}>
-              Quantidade: {product?.qty}
-            </Text>
-
-            <TouchableOpacity
-              style={[styles.button, { backgroundColor: theme.primary }]}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.buttonText}>Fechar</Text>
-            </TouchableOpacity>
+            {product && (
+              <>
+                <Text style={[styles.modalText, { color: theme.text }]}>
+                  Código: {product.code}
+                </Text>
+                <Text style={[styles.modalText, { color: theme.text }]}>
+                  Descrição: {product.desc}
+                </Text>
+                <Text style={[styles.modalText, { color: theme.text }]}>
+                  Preço: R$ {product.price.toFixed(2)}
+                </Text>
+                <Text style={[styles.modalText, { color: theme.text }]}>
+                  Quantidade: {product.qty}
+                </Text>
+              </>
+            )}
             <TouchableOpacity
               style={[styles.button, { backgroundColor: theme.primary }]}
               onPress={() => {
                 adicionarEtiqueta(product);
                 setModalVisible(false);
-                setBarcode("");
+                setInput("");
               }}
             >
               <Text style={styles.buttonText}>Adicionar à impressão</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={[styles.cancelButton]}
+            >
+              <Text style={[styles.cancelText, { color: theme.primary }]}>
+                Fechar
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -170,39 +191,55 @@ export default function BarcodeScannerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: { flex: 1 },
+  header: { paddingTop: 80, paddingBottom: 20 },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  innerContainer: {
     flex: 1,
     padding: 20,
     justifyContent: "center",
   },
   title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 16,
     textAlign: "center",
   },
-  input: {
-    height: 48,
+  inputWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
     borderRadius: 8,
     borderWidth: 1,
+    marginBottom: 16,
+  },
+  input: {
+    flex: 1,
+    height: 50,
     paddingHorizontal: 12,
-    marginBottom: 10,
+    fontSize: 16,
+  },
+  iconButton: {
+    paddingHorizontal: 12,
   },
   button: {
-    marginTop: 10,
-    padding: 12,
+    padding: 14,
     borderRadius: 8,
     alignItems: "center",
+    marginTop: 10,
   },
   buttonText: {
     color: "#fff",
-    fontWeight: "bold",
+    fontWeight: "600",
     fontSize: 16,
   },
   error: {
     color: "red",
-    marginBottom: 10,
     textAlign: "center",
+    marginBottom: 10,
   },
   modalOverlay: {
     flex: 1,
@@ -211,17 +248,25 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   modalContent: {
-    padding: 24,
-    borderRadius: 12,
+    borderRadius: 10,
+    padding: 20,
   },
   modalTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 12,
     textAlign: "center",
+    marginBottom: 12,
   },
   modalText: {
     fontSize: 16,
-    marginBottom: 8,
+    marginBottom: 6,
+  },
+  cancelButton: {
+    marginTop: 16,
+    alignItems: "center",
+  },
+  cancelText: {
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
