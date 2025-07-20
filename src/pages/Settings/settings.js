@@ -77,7 +77,7 @@ const Settings = ({ navigation }) => {
           <Icon name="chevron-right" size={20} color={theme.primary} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
+        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]} onPress={() => navigation.navigate("ClearHistory")}>
           <View style={styles.itemLeft}>
             <Icon name="trash-2" size={20} color={theme.primary} />
             <Text style={[styles.itemLabel, { color: theme.text }]}>Limpar Histórico</Text>

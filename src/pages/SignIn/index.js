@@ -23,9 +23,7 @@ export default function SignIn() {
         delay={500}
         style={styles.containerHeader}
       >
-        <Text style={[styles.message, { color: "#fff" }]}>
-          Boas-vindas
-        </Text>
+        <Text style={[styles.message, { color: "#fff" }]}>Boas-vindas</Text>
       </Animatable.View>
 
       <Animatable.View
@@ -38,10 +36,18 @@ export default function SignIn() {
         <View
           style={[
             styles.inputContainer,
-            { backgroundColor: theme.inputBackground, borderColor: theme.border },
+            {
+              backgroundColor: theme.inputBackground,
+              borderColor: theme.border,
+            },
           ]}
         >
-          <Icon name="user" size={20} color={theme.primary} style={styles.icon} />
+          <Icon
+            name="user"
+            size={20}
+            color={theme.primary}
+            style={styles.icon}
+          />
           <TextInput
             style={[styles.input, { color: theme.text }]}
             placeholder="Usuário..."
@@ -55,10 +61,18 @@ export default function SignIn() {
         <View
           style={[
             styles.inputContainer,
-            { backgroundColor: theme.inputBackground, borderColor: theme.border },
+            {
+              backgroundColor: theme.inputBackground,
+              borderColor: theme.border,
+            },
           ]}
         >
-          <Icon name="lock" size={20} color={theme.primary} style={styles.icon} />
+          <Icon
+            name="lock"
+            size={20}
+            color={theme.primary}
+            style={styles.icon}
+          />
           <TextInput
             style={[styles.input, { color: theme.text }]}
             placeholder="Senha..."
@@ -79,7 +93,15 @@ export default function SignIn() {
           onPress={() => navigation.navigate("ForgotPassword")}
         >
           <Text style={[styles.registerText, { color: theme.primary }]}>
-            Não tem usuário ou esqueceu sua senha?
+            Esqueceu sua senha?
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonRegister}
+          onPress={() => navigation.navigate("RegisterUser")}
+        >
+          <Text style={[styles.registerText, { color: theme.primary }]}>
+           Cadastre-se
           </Text>
         </TouchableOpacity>
       </Animatable.View>

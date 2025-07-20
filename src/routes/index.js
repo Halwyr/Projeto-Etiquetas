@@ -18,6 +18,8 @@ import BarcodeScannerScreen from "../pages/BarcodeScannerScreen";
 import EtiquetaPreview from "../pages/EtiquetasPreview";
 import ManualLabelCreator from "../pages/ManualLabelCreator";
 import HistoryScreen from "../pages/HistoryScreen";
+import ClearHistory from "../pages/Settings/clearHistory";
+import RegisterUser from "../pages/SignIn/registerUser";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -34,6 +36,7 @@ function HomeDrawer() {
       <Drawer.Screen name="Settings" component={Settings} />
       <Drawer.Screen name="Notifications" component={Notifications} />
       <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Drawer.Screen name="ClearHistory" component={ClearHistory}/>
       <Drawer.Screen name="ProductList" component={ProductListScreen} />
       <Drawer.Screen name="ScannerScreen" component={BarcodeScannerScreen} />
       <Drawer.Screen name="EtiquetasPreview" component={EtiquetaPreview} />
@@ -50,6 +53,7 @@ export default function Routes() {
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="Home" component={HomeDrawer} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="RegisterUser" component={RegisterUser}/>
     </Stack.Navigator>
   );
 }
