@@ -7,8 +7,14 @@ import {
   TouchableOpacity,
   FlatList,
   Modal,
+  Alert,
 } from "react-native";
 import { useTheme } from "../../../styles/ThemeContext";
+import Icon from "react-native-vector-icons/Feather";
+import ExcelJS from "exceljs";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+import * as Print from "expo-print";
 
 // JSON contendo os produtos cadastrados
 const mockProducts = [
@@ -97,6 +103,119 @@ export default function ProductListScreen() {
     setModalVisible(false);
   };
 
+  // Função para gerar relatório Excel
+  const gerarRelatorioExcel = async () => {
+    if (products.length === 0) {
+      Alert.alert("Lista vazia", "Não há produtos para gerar relatório.");
+      return;
+    }
+
+    try {
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Produtos");
+
+      worksheet.columns = [
+        { header: "Código", key: "code", width: 15 },
+        { header: "Código de Barras", key: "barcode", width: 25 },
+        { header: "Descrição", key: "desc", width: 30 },
+        { header: "Preço (R$)", key: "price", width: 15 },
+        { header: "Quantidade", key: "qty", width: 15 },
+      ];
+
+      products.forEach((p) => {
+        worksheet.addRow({
+          code: p.code,
+          barcode: p.barcode,
+          desc: p.desc,
+          price: p.price,
+          qty: p.qty,
+        });
+      });
+
+      worksheet.getRow(1).eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: "FFFFFFFF" } };
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: "FF007ACC" },
+        };
+        cell.alignment = { horizontal: "center" };
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const fileUri = FileSystem.cacheDirectory + "relatorio_produtos.xlsx";
+      await FileSystem.writeAsStringAsync(fileUri, buffer.toString("base64"), {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(fileUri, {
+          mimeType:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          dialogTitle: "Compartilhar Relatório Excel",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Erro", "Não foi possível gerar o relatório Excel.");
+    }
+  };
+
+  // Função para gerar relatório PDF
+  const gerarRelatorioPDF = async () => {
+    if (products.length === 0) {
+      Alert.alert("Lista vazia", "Não há produtos para gerar relatório.");
+      return;
+    }
+
+    const html = `
+      <html>
+        <head>
+          <style>
+            body { font-family: Arial; padding: 20px; }
+            h1 { text-align: center; color: #007ACC; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+            th { background-color: #007ACC; color: white; }
+          </style>
+        </head>
+        <body>
+          <h1>Relatório de Produtos</h1>
+          <table>
+            <tr>
+              <th>Código</th>
+              <th>Código de Barras</th>
+              <th>Descrição</th>
+              <th>Preço (R$)</th>
+              <th>Quantidade</th>
+            </tr>
+            ${products
+              .map(
+                (p) => `
+              <tr>
+                <td>${p.code}</td>
+                <td>${p.barcode}</td>
+                <td>${p.desc}</td>
+                <td>R$ ${p.price.toFixed(2).replace(".", ",")}</td>
+                <td>${p.qty}</td>
+              </tr>`
+              )
+              .join("")}
+          </table>
+        </body>
+      </html>
+    `;
+
+    const { uri } = await Print.printToFileAsync({ html });
+
+    if (await Sharing.isAvailableAsync()) {
+      await Sharing.shareAsync(uri, {
+        mimeType: "application/pdf",
+        dialogTitle: "Compartilhar Relatório PDF",
+      });
+    }
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* Header */}
@@ -106,7 +225,7 @@ export default function ProductListScreen() {
         </Text>
       </View>
 
-      {/* Campo de busca */}
+      {/* Campo de busca + Impressora */}
       <View style={styles.searchRow}>
         <TextInput
           style={[
@@ -122,6 +241,24 @@ export default function ProductListScreen() {
           value={search}
           onChangeText={handleSearch}
         />
+
+        {/* Botão de menu para escolher PDF ou Excel */}
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() =>
+            Alert.alert(
+              "Exportar Relatório",
+              "Escolha o formato de exportação:",
+              [
+                { text: "Excel", onPress: gerarRelatorioExcel },
+                { text: "PDF", onPress: gerarRelatorioPDF },
+                { text: "Cancelar", style: "cancel" },
+              ]
+            )
+          }
+        >
+          <Icon name="printer" size={30} color={theme.primary} />
+        </TouchableOpacity>
       </View>
 
       {/* Lista de produtos */}
@@ -174,7 +311,7 @@ export default function ProductListScreen() {
                   Preço: R$ {selectedProduct.price.toFixed(2)}
                 </Text>
                 <Text style={[styles.modalText, { color: theme.text }]}>
-                  Quantidade em estoque: {selectedProduct.qty}
+                  Quantidade: {selectedProduct.qty}
                 </Text>
               </>
             )}
@@ -199,11 +336,7 @@ const styles = StyleSheet.create({
     paddingTop: 80,
     paddingBottom: 20,
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
+  headerTitle: { fontSize: 24, fontWeight: "bold", textAlign: "center" },
   searchRow: {
     flexDirection: "row",
     paddingHorizontal: 16,
@@ -218,15 +351,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 1,
   },
-  card: {
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 12,
-  },
-  line: {
-    fontSize: 16,
-    marginBottom: 4,
-  },
+  iconButton: { paddingHorizontal: 15 },
+  card: { padding: 12, borderRadius: 8, marginBottom: 12 },
+  line: { fontSize: 16, marginBottom: 4 },
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.6)",
@@ -234,30 +361,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
-  modalContent: {
-    width: "100%",
-    borderRadius: 10,
-    padding: 24,
-  },
+  modalContent: { width: "100%", borderRadius: 10, padding: 24 },
   modalTitle: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 12,
     textAlign: "center",
   },
-  modalText: {
-    fontSize: 16,
-    marginBottom: 8,
-  },
+  modalText: { fontSize: 16, marginBottom: 8 },
   modalButton: {
     marginTop: 20,
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
   },
-  modalButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
+  modalButtonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
 });

@@ -66,7 +66,10 @@ export default function HomeScreen() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("HistoryScreen")}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("HistoryScreen")}
+        >
           <Image
             source={require("../../../src/assets/historical.png")}
             style={styles.icon}
@@ -76,8 +79,10 @@ export default function HomeScreen() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.card}
-        onPress={() => navigation.navigate("ManualLabelCreator")}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("ManualLabelCreator")}
+        >
           <Image
             source={require("../../../src/assets/edit.png")}
             style={styles.icon}

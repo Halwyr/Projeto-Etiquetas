@@ -59,23 +59,23 @@ const Settings = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* Seção 2: Sincronização e Dados */}
-        <Text style={[styles.sectionTitle, { color: theme.primary }]}>Sincronização e Dados</Text>
+        <Text style={[styles.sectionTitle, { color: theme.primary }]}>Histórico</Text>
 
-        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
+        {/* <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
           <View style={styles.itemLeft}>
             <Icon name="refresh-cw" size={20} color={theme.primary} />
             <Text style={[styles.itemLabel, { color: theme.text }]}>Forçar Sincronização</Text>
           </View>
           <Icon name="chevron-right" size={20} color={theme.primary} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
+         {/* <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
           <View style={styles.itemLeft}>
             <Icon name="file" size={20} color={theme.primary} />
             <Text style={[styles.itemLabel, { color: theme.text }]}>Exportar Dados</Text>
           </View>
           <Icon name="chevron-right" size={20} color={theme.primary} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]} onPress={() => navigation.navigate("ClearHistory")}>
           <View style={styles.itemLeft}>
@@ -83,7 +83,7 @@ const Settings = ({ navigation }) => {
             <Text style={[styles.itemLabel, { color: theme.text }]}>Limpar Histórico</Text>
           </View>
           <Icon name="chevron-right" size={20} color={theme.primary} />
-        </TouchableOpacity>
+        </TouchableOpacity> 
 
         {/* Seção 3: Conta */}
         <Text style={[styles.sectionTitle, { color: theme.primary }]}>Conta e Acesso</Text>
@@ -121,12 +121,12 @@ const Settings = ({ navigation }) => {
           <Icon name="chevron-right" size={20} color={theme.primary} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
+        {/* <TouchableOpacity style={[styles.item, { backgroundColor: theme.card }]}>
           <View style={styles.itemLeft}>
             <Icon name="code" size={20} color={theme.primary} />
             <Text style={[styles.itemLabel, { color: theme.text }]}>Versão: 1.0.0.5</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </ScrollView>
     </View>
   );
